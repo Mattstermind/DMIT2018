@@ -2,13 +2,21 @@
 > Neat little code snippet
 ---
 `while True: 
+
   If iAmHungry = true
+  
   {
+  
     MakeSandwich();
+    
   }
+  
   else
+  
   {
+  
     MakeSandwich();
+    
   }`
 ---
 > NOM NOM NOM
