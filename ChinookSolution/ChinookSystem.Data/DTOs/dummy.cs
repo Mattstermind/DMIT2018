@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChinookSystem.DAL
+namespace ChinookSystem.Data.DTOs
 {
     class dummy
     {
-       
     }
 }
