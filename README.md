@@ -1,5 +1,16 @@
 # DMIT2018 Section A03 for Jan-Apr 2020
-> SO FRICKING EZ 
-`TO USE`
+> Neat little code snippet
+`
+while True: 
+  If iAmHungry = true
+  {
+    MakeSandwich();
+  }
+  else
+  {
+    MakeSandwich();
+  }
+  
+  `
 ---
-> Im so excited to learm YIPPEEEE
+> NOM NOM NOM
