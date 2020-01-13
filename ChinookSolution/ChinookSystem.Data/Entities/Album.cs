@@ -50,7 +50,7 @@ namespace ChinookSystem.Data.Entities
             }
         }
 
-        public virtual Artist Artist { get; set; }S
+        public virtual Artist Artist { get; set; }
 
     }
 }
