@@ -3,7 +3,7 @@
 
     <h1>Query: Albums by Artist</h1>
 
-    <asp:Label ID="Label1" runat="server" Text="Select an artist"></asp:Label>&nbsp;&nbsp;&nbsp;
+ <%--   <asp:Label ID="Label1" runat="server" Text="Select an artist"></asp:Label>&nbsp;&nbsp;&nbsp;
     <asp:DropDownList ID="ArtistList" runat="server" 
         DataSourceID="ArtistListODS" 
         DataTextField="Name" 
@@ -12,8 +12,12 @@
     </asp:DropDownList>
 
     <asp:Button ID="Fetch" runat="server" Text="Fetch" />
-    <br /><br />
+    <br /><br />--%>
 
+    <asp:Label ID="Label2" runat="server" Text="Select an artist"></asp:Label>&nbsp;&nbsp;
+    <asp:TextBox ID="AlbumTitleArg" runat="server"></asp:TextBox>
+    <asp:Button ID="Button1" runat="server" Text="Fetch" />
+    <br /><br />
 
 
     <asp:GridView ID="AlbumList" runat="server" DataSourceID="AlbumListODS" AllowPaging="True" PageSize="15" 
@@ -62,10 +66,10 @@
 
     <asp:ObjectDataSource ID="AlbumListODS" runat="server"
         OldValuesParameterFormatString="original_{0}"
-        SelectMethod="Album_FindByArtist"
+        SelectMethod="Album_FindByTitle"
         TypeName="ChinookSystem.BLL.AlbumController">
         <SelectParameters>
-            <asp:ControlParameter ControlID="ArtistList" PropertyName="SelectedValue" DefaultValue="0" Name="artistid" Type="Int32"></asp:ControlParameter>
+            <asp:ControlParameter ControlID="AlbumTitleArg" PropertyName="Text" DefaultValue="zxzxcvbnmghjklsdfghjk" Name="albumtitle" Type="String"></asp:ControlParameter>
         </SelectParameters>
     </asp:ObjectDataSource>
 

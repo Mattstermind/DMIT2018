@@ -44,5 +44,19 @@ namespace ChinookSystem.BLL
                 return results.ToList();
             }
         }
+
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<Album> Album_FindByTitle(string albumtitle)
+        {
+            using (var context = new ChinookContext())
+            {
+                //simple example of a record set lookup via the foreign key
+                // on a DbSet<T> using Linq
+                var results = from albumrow in context.Albums
+                              where albumrow.Title.Contains(albumtitle)
+                              select albumrow;
+                return results.ToList();
+            }
+        }
     }
 }
