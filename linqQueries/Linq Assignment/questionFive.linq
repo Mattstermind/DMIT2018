@@ -1,7 +1,6 @@
 <Query Kind="Statements">
   <Connection>
     <ID>7eb36c45-f45a-48bd-b8de-f61d5f6d7965</ID>
-    <Persist>true</Persist>
     <Server>.</Server>
     <Database>Schedule</Database>
   </Connection>
@@ -15,7 +14,7 @@ int ?mostExperience = (from y in Employees
 						   
 mostExperience.Dump();
 var mostExperienceResults = Employees
-							.Where(x => (x.EmployeeSkills.YearsOfExperience ==  mostExperience))
+							.Where(x => (x.EmployeeSkills.Sum(z => z.YearsOfExperience) ==  mostExperience))
 							.Select
 							(
 								x => new

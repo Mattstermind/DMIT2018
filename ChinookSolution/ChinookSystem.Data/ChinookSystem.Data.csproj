@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTOs\ArtistAlbumList.cs" />
+    <Compile Include="DTOs\MyPlayList.cs" />
     <Compile Include="Entities\Album.cs" />
     <Compile Include="Entities\Artist.cs" />
     <Compile Include="Entities\ChinookContext.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="Entities\WorkingVersion.cs" />
     <Compile Include="POCOs\AlbumArtists.cs" />
     <Compile Include="POCOs\ListDDL.cs" />
+    <Compile Include="POCOs\PlayListSong.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

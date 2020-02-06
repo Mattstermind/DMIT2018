@@ -1,7 +1,6 @@
 <Query Kind="Program">
   <Connection>
     <ID>7eb36c45-f45a-48bd-b8de-f61d5f6d7965</ID>
-    <Persist>true</Persist>
     <Server>.</Server>
     <Database>Schedule</Database>
   </Connection>
@@ -28,3 +27,11 @@ void Main()
 
 
 // Define other methods and classes here
+public DateTime[] November()
+{
+DateTime monthNovember = new DateTime(2020, 11, 1)
+	for(x = 0; x < 30; x++)
+	{
+	
+	}
+}
