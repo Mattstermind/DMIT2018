@@ -1,6 +1,6 @@
 <Query Kind="Program">
   <Connection>
-    <ID>da94a474-8b96-4ece-a34b-98032898cf8f</ID>
+    <ID>7eb36c45-f45a-48bd-b8de-f61d5f6d7965</ID>
     <Persist>true</Persist>
     <Server>.</Server>
     <Database>Schedule</Database>
@@ -10,16 +10,30 @@
 void Main()
 {
 	//List the names of all employees who did not work in November. Show the name in the format of "LastName, FirstName" and sort it by last name and then first name.
-	var notWorkResults = Schedules
-						.Where(x =>(x.Day.Month == 11))
+	//put the month of november in a query
+	
+		
+	
+		var notWorkResults = Employees
+						.Where(x => (x.Schedules.Count() == 0) && x.Schedules(y => y.Day.Mpnth == 11) )
 						.Select
 							(
 								x => new
 								{
-									Name = x.Employee.LastName + ", " +  x.Employee.FirstName,
+								Name = x.Schedules
+											.Where(y => y.Day.Month == 11 && (x.Schedules.Count() == 0))
+											.Select
+											(
+												y => new
+												{
+													Name = x.LastName + ", " +  x.FirstName,
+												}
+											)
 								}
-							).Distinct();
+							);
 	notWorkResults.Dump();
+	
+
 }
 
 
