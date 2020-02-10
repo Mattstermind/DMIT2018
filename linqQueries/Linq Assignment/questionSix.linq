@@ -1,40 +1,25 @@
-<Query Kind="Program">
+<Query Kind="Statements">
   <Connection>
-    <ID>7eb36c45-f45a-48bd-b8de-f61d5f6d7965</ID>
+    <ID>da94a474-8b96-4ece-a34b-98032898cf8f</ID>
     <Persist>true</Persist>
     <Server>.</Server>
     <Database>Schedule</Database>
   </Connection>
 </Query>
 
-void Main()
-{
-	//List the names of all employees who did not work in November. Show the name in the format of "LastName, FirstName" and sort it by last name and then first name.
-	//put the month of november in a query
-	
-		
-	
-		var notWorkResults = Employees
-						.Where(x => (x.Schedules.Count() == 0) && x.Schedules(y => y.Day.Mpnth == 11) )
-						.Select
-							(
-								x => new
-								{
-								Name = x.Schedules
-											.Where(y => y.Day.Month == 11 && (x.Schedules.Count() == 0))
-											.Select
-											(
-												y => new
-												{
-													Name = x.LastName + ", " +  x.FirstName,
-												}
-											)
-								}
-							);
-	notWorkResults.Dump();
+//List the names of all employees who did not work in November. Show the name in the format of "LastName, FirstName" and sort it by last name and then first name.
+//put the month of november in a query
+
 	
 
-}
-
-
-// Define other methods and classes here
+	var notWorkResults = Employees
+					.Where(x => (x.Schedules.Count() == 0) && (x.Schedules.All( z => z.Day.Month == 11)))
+					.OrderBy (x => x.LastName)
+					.Select
+						(
+							x => new
+							{
+							Name = x.LastName + ", " +  x.FirstName
+							}
+						);
+notWorkResults.Dump();

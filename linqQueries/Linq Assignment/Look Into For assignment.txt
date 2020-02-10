@@ -1,0 +1,1 @@
+Any or All dot operator will help with our where clause queries
