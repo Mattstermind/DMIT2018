@@ -1,6 +1,6 @@
 <Query Kind="Program">
   <Connection>
-    <ID>7eb36c45-f45a-48bd-b8de-f61d5f6d7965</ID>
+    <ID>da94a474-8b96-4ece-a34b-98032898cf8f</ID>
     <Persist>true</Persist>
     <Server>.</Server>
     <Database>Schedule</Database>
@@ -14,12 +14,10 @@ void Main()
 		Display the name of the day of week (Sunday, as the first day of the week, is number zero) and the number of employees needed.
 	*/
 	
-//	DateTime startDate = StartOfWeek(DayOfWeek.Monday);
-//	DateTime endDate = startDate.AddDays(6);
+	var startDate = new DateTime(2019, 1, 6);
+	var endDate = new DateTime(2019, 1, 10);
 
-	var weeklyScheduleResults = 
-	
-								Shifts
+	var weeklyScheduleResults = Shifts
 								.Where ( x=> (x.DayOfWeek != 0 && x.DayOfWeek != 6))
 								.OrderBy (x => x.DayOfWeek)
 								.Select
