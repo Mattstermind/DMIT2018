@@ -1,12 +1,10 @@
 <Query Kind="Program">
   <Connection>
     <ID>7959939c-8f4f-4533-8369-bacee83cefbf</ID>
-    <Persist>true</Persist>
     <Server>.</Server>
     <Database>Schedule</Database>
   </Connection>
 </Query>
-
 
 void Main()
 {
@@ -15,18 +13,22 @@ void Main()
 		Display the name of the day of week (Sunday, as the first day of the week, is number zero) and the number of employees needed.
 	*/
 	
-	var startDate = new DateTime(2019, 12, 22);
-	var endDate = new DateTime(2019, 12, 28);
-//x.DayOfWeek != 0 && x.DayOfWeek != 6
+	
+	
+	
+	
+	
+
 	var weeklyScheduleResults = Shifts
-								.Where ( x=> (x.Schedules.Any(z => z.Day > startDate && z.Day < endDate)))
-								.OrderBy (x => x.DayOfWeek)
+								.Where (x => x.PlacementContract.Location.Name.Contains("Nait"))
+								.GroupBy (x => x.DayOfWeek)
+								.OrderBy (grpDay => grpDay.Key)
 								.Select
 								(
-									x => new
+									grpDay => new
 									{
-										DayOfWeek = (x.DayOfWeek == 1) ? "Mon" : (x.DayOfWeek == 2) ? "Tue" : (x.DayOfWeek == 3) ? "Wed" : (x.DayOfWeek == 4) ? "Thu" : "Fri", 
-										NumberOfEmployees = x.Schedules.Count()
+										DayOfWeek =  (grpDay.Key == 1) ? "Mon" : (grpDay.Key == 2) ? "Tue" : (grpDay.Key == 3) ? "Wed" : (grpDay.Key == 4) ? "Thu" : "Fri",
+										EmployeesNeeded = grpDay.Sum(z => z.NumberOfEmployees)
 									}
 								);
 								
