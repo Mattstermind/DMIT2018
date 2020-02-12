@@ -1,6 +1,6 @@
 <Query Kind="Expression">
   <Connection>
-    <ID>7f7ec588-2437-411a-b092-3f1debc0e04c</ID>
+    <ID>41bad139-d332-41fa-8f46-a6f48f14fabf</ID>
     <Persist>true</Persist>
     <Server>.</Server>
     <Database>Chinook</Database>
@@ -151,3 +151,8 @@ select new
 						custname = clst.LastName +", "+ clst.FirstName
 					 }
 }
+
+//grouping on multiple attributes NOT a defined class
+from c in Customers
+group c by new {c.Country, c.State} into gRed
+select gRed
