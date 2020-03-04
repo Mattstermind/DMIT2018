@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 #region Additonal Namespaces
 using ChinookSystem.BLL;
 using ChinookSystem.Data.POCOs;
+using ChinookSysyem.Data.POCOs;
 
 #endregion
 
@@ -76,7 +77,33 @@ namespace WebApp.SamplePages
         }
         protected void PlayListFetch_Click(object sender, EventArgs e)
         {
-            //code to go here
+            if (string.IsNullOrEmpty(PlaylistName.Text))
+            {
+                MessageUserControl.ShowInfo("Missing Data", "Please Enter the playlist name");
+            }
+            else
+            {
+                string username = "HansenB"; //Username will come from security once implemented
+
+                //MessageUserControl will be used to handle the code behind user friendly error handling
+                //you will NOT be using try/catch
+                //your try/catch is embedded within the MessageUserControl class
+                MessageUserControl.TryRun(() =>
+                {
+                    PlaylistTracksController sysmgr = new PlaylistTracksController();
+                    List<UserPlaylistTrack> playlistInfo = null;
+                    playlistInfo = sysmgr.List_TracksForPlaylist(PlaylistName.Text, username);
+                    if (playlistInfo == null)
+                    {
+                        throw new Exception("Playlist no longer exists");
+                    }
+                    else
+                    {
+                        PlayList.DataSource = playlistInfo;
+                        PlayList.DataBind();
+                    }
+                }, "Playlist", "Manage your playlist");//string after successful coding block
+            }
  
         }
 
@@ -108,7 +135,23 @@ namespace WebApp.SamplePages
         protected void TracksSelectionList_ItemCommand(object sender, 
             ListViewCommandEventArgs e)
         {
-            //code to go here
+            if (string.IsNullOrEmpty(PlaylistName.Text))
+            {
+                MessageUserControl.ShowInfo("Missing Data", "Enter a playlist name");
+            }
+            else
+            {
+                string username = "HansenB";
+                MessageUserControl.TryRun(() =>
+                {
+                    int trackid = int.Parse(e.CommandArgument.ToString());
+                    PlaylistTracksController sysmgr = new PlaylistTracksController();
+                    sysmgr.Add_TrackToPLaylist(PlaylistName.Text, username, trackid);
+                    List<UserPlaylistTrack> playlistInfo = null;
+                    PlayList.DataSource = playlistInfo;
+                    PlayList.DataBind();
+                }, "Add Track","Track has been added to your playlist");
+            }
             
         }
 
