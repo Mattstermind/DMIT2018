@@ -187,9 +187,41 @@ namespace ChinookSystem.BLL
         {
             using (var context = new ChinookContext())
             {
-               //code to go here
-
-
+                //code to go here
+                var exists = (from x in context.Playlists
+                              where x.UserName.Equals(username)
+                              && x.Name.Equals(playlistname)
+                              select x).FirstOrDefault();
+                if (exists == null)
+                {
+                    throw new Exception("Playlist has been removed from the system");
+                }
+                else
+                {
+                    var trackKept = exists.PlaylistTracks
+                                    .Where(tr => !trackstodelete.Any(tod => tod == tr.TrackId))
+                                    .OrderBy(tr => tr.TrackNumber)
+                                    .Select(tr => tr);
+                    PlaylistTrack item = null;
+                    foreach (var dtrackid in trackstodelete)
+                    {
+                        item = (exists.PlaylistTracks
+                               .Where(tr => tr.TrackId == dtrackid)
+                               .Select(tr => tr)).FirstOrDefault();
+                        if (item != null)
+                        {
+                            exists.PlaylistTracks.Remove(item);
+                        }
+                    }
+                    int number = 1;
+                    foreach (var tKept in trackKept)
+                    {
+                        tKept.TrackNumber = number;
+                        context.Entry(tKept).Property(y => y.TrackNumber).IsModified = true;
+                        number++;
+                    }
+                    context.SaveChanges();
+                }
             }
         }//eom
     }

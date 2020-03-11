@@ -226,9 +226,48 @@ namespace WebApp.SamplePages
         protected void DeleteTrack_Click(object sender, EventArgs e)
         {
             //code to go here
- 
+            string username = "HansenB";
+            if (string.IsNullOrEmpty(PlaylistName.Text))
+            {
+                MessageUserControl.ShowInfo("Missing Data", "Enter a playlist name");
+            }
+            else
+            {
+                if (PlayList.Rows.Count == 0)
+                {
+                    MessageUserControl.ShowInfo("Missing Data", "Playlist has no tracks to remove.");
+                }
+                else
+                {
+                    List<int> tracksToDelete = new List<int>();
+                    int rowsSelected = 0;
+                    CheckBox playlistSelection = null;
+                    for (int i = 0; i < PlayList.Rows.Count; i++)
+                    {
+                        playlistSelection = PlayList.Rows[i].FindControl("Selected") as CheckBox;
+                        if (playlistSelection.Checked)
+                        {
+                            rowsSelected++;
+                            tracksToDelete.Add(int.Parse((PlayList.Rows[i].FindControl("TrackID") as Label).Text));
+                            if (rowsSelected == 0)
+                            {
+                                MessageUserControl.ShowInfo("No data", "You must select at least one track to remove");
+                            }
+                            else
+                            {
+                                MessageUserControl.TryRun(() => {
+                                    PlaylistTracksController sysmgr = new PlaylistTracksController();
+                                    sysmgr.DeleteTracks(username, PlaylistName.Text, tracksToDelete);
+                                    List<UserPlaylistTrack> info = sysmgr.List_TracksForPlaylist(PlaylistName.Text, username);
+                                    PlayList.DataSource = info;
+                                    PlayList.DataBind();
+                                }, "Remove Tracks", "Track(s) have been Removed");
+                            }
+                        }
+                    }
+                }
+            }
         }
-
         protected void TracksSelectionList_ItemCommand(object sender, 
             ListViewCommandEventArgs e)
         {
